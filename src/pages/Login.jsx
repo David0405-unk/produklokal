@@ -38,8 +38,8 @@ function Login() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-left">
-          <div className="auth-logo">PL</div>
-          <div className="auth-brand">Pengrajin Lokal</div>
+          <div className="auth-logo">MC</div>
+          <div className="auth-brand">MinahasaCraft</div>
           <h1 className="auth-welcome">Selamat Datang Kembali!</h1>
           <p className="auth-tagline">Masuk untuk mengelola produk kerajinan dan profil Anda.</p>
           <Link to="/register" className="btn-outline-white">Daftar</Link>

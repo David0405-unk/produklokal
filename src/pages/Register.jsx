@@ -41,8 +41,8 @@ function Register() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-left">
-          <div className="auth-logo">PL</div>
-          <div className="auth-brand">Pengrajin Lokal</div>
+          <div className="auth-logo">MC</div>
+          <div className="auth-brand">MinahasaCraft</div>
           <h1 className="auth-welcome">Bergabung Bersama Kami</h1>
           <p className="auth-tagline">Daftarkan diri sebagai pengrajin dan perkenalkan karya Anda ke lebih banyak orang.</p>
           <Link to="/login" className="btn-outline-white">Masuk</Link>

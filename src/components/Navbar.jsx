@@ -46,9 +46,9 @@ function Navbar({ role }) {
   return (
     <header className="topbar">
       <div className="topbar-brand">
-        <div className="brand-logo">PL</div>
+        <div className="brand-logo">MC</div>
         <div>
-          <div className="brand-name">Pengrajin Lokal</div>
+          <div className="brand-name">MinahasaCraft</div>
           <div className="brand-sub">Sulawesi Utara</div>
         </div>
       </div>
