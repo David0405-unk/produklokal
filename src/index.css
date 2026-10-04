@@ -207,3 +207,4 @@ h1, h2, h3, .stats strong, .product-price.big { font-variant-numeric: lining-num
 .password-field input { padding-right: 52px; }
 .password-toggle { position: absolute; right: 6px; top: 26%; transform: translateY(-50%); width: 40px; height: 40px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 8px; color: var(--muted); cursor: pointer; }
 .password-toggle:hover { color: var(--clay); background: var(--clay-soft); }
+.auth-link-line { text-align: right; font-size: 14px; margin: -6px 0 0; }

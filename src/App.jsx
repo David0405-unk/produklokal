@@ -4,6 +4,8 @@ import JelajahKerajinan from './pages/JelajahKerajinan';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProtectedRoute from './components/ProtectedRoute';
+import LupaPassword from './pages/LupaPassword';
+import ResetPassword from './pages/ResetPassword';
 import './App.css';
 
 import DetailProduk from './pages/DetailProduk';
@@ -25,6 +27,8 @@ function App() {
         <Route path="/jelajah" element={<JelajahKerajinan />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/lupa-password" element={<LupaPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/produk/:id" element={<DetailProduk />} />
         <Route path="/pengrajin/:id" element={<DetailProfilPengrajin />} />
         <Route path="/rekomendasi" element={<FormRekomendasi />} />

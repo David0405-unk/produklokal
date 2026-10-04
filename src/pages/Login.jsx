@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import PasswordInput from '../components/PasswordInput';
 
@@ -9,6 +9,7 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -50,8 +51,10 @@ function Login() {
           <p className="auth-subtitle">Masuk sebagai pengrajin atau admin</p>
           <form onSubmit={handleLogin}>
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} required />
-            {error && <p className="error">{error}</p>}
+             <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} required />
+             <p className="auth-link-line"><Link to="/lupa-password">Lupa kata sandi?</Link></p>
+             {location.state?.pesan && <p className="success">{location.state.pesan}</p>}
+             {error && <p className="error">{error}</p>}
             <button type="submit" disabled={loading}>{loading ? 'Memproses...' : 'Masuk'}</button>
           </form>
           <p className="switch-auth">Belum punya akun? <Link to="/register">Daftar sebagai pengrajin</Link></p>
