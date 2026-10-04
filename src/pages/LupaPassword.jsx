@@ -27,8 +27,8 @@ function LupaPassword() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-left">
-          <div className="auth-logo">PL</div>
-          <div className="auth-brand">Pengrajin Lokal</div>
+          <div className="auth-logo">MC</div>
+          <div className="auth-brand">MinahasaCraft</div>
           <h1 className="auth-welcome">Lupa Kata Sandi?</h1>
           <p className="auth-tagline">Tenang, kami kirim tautan ke email untuk membuat kata sandi baru.</p>
           <Link to="/login" className="btn-outline-white">Kembali Masuk</Link>
