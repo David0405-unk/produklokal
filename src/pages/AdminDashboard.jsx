@@ -41,12 +41,12 @@ function AdminDashboard() {
   const putuskan = async (id, status, alasanTolak = null) => {
     const { error: er } = await supabase.from('produk_kerajinan')
       .update({ status_publikasi: status, alasan_penolakan: alasanTolak }).eq('id_produk', id);
-  if (er) setError('Gagal menyimpan: ' + er.message);
-  setBuka(null);
-  setTolakId(null);
-  setAlasan('');
-  muat();
-};
+    if (er) setError('Gagal menyimpan: ' + er.message);
+    setBuka(null);
+    setTolakId(null);
+    setAlasan('');
+    muat();
+  };
 
   const kirimTolak = (id) => {
     if (alasan.trim().length < 5) {
@@ -100,27 +100,11 @@ function AdminDashboard() {
             <strong>{p.nama_produk}</strong>
             <p className="muted">{namaU[p.id_pengrajin] || 'Pengrajin'} · {namaK[p.id_kategori] || 'Tanpa kategori'} · {rp(p.harga)}</p>
           </div>
-          {tolakId === p.id_produk ? (
-            <div className="reject-box">
-              <label>Alasan penolakan (akan dilihat pengrajin)
-                <textarea
-                  rows="3"
-                  value={alasan}
-                  onChange={(e) => setAlasan(e.target.value)}
-                  placeholder="Contoh: foto kurang jelas, bahan dan teknik belum lengkap"
-                />
-              </label>
-                <div className="list-actions">
-                  <button className="btn btn-small btn-danger" onClick={() => kirimTolak(p.id_produk)}>Kirim penolakan</button>
-                  <button className="btn btn-small btn-outline" onClick={() => { setTolakId(null); setAlasan(''); }}>Batal</button>
-                </div>
-              </div>
-            ) : (
-              <div className="list-actions">
-                <button className="btn btn-small" onClick={() => putuskan(p.id_produk, 'Disetujui')}>Setujui</button>
-                <button className="btn btn-small btn-danger" onClick={() => setTolakId(p.id_produk)}>Tolak</button>
-              </div>
-            )}
+          <div className="list-actions">
+            <button className="btn btn-small btn-outline" onClick={() => { setBuka(buka === p.id_produk ? null : p.id_produk); setTolakId(null); setAlasan(''); }}>
+              {buka === p.id_produk ? 'Tutup' : 'Lihat detail'}
+            </button>
+          </div>
 
           {buka === p.id_produk && (
             <div className="review">
@@ -139,10 +123,28 @@ function AdminDashboard() {
                 <p>{p.deskripsi || '-'}</p>
                 <h3>Makna dan cerita motif</h3>
                 <p>{p.makna_motif || '-'}</p>
-                <div className="list-actions">
-                  <button className="btn btn-small" onClick={() => putuskan(p.id_produk, 'Disetujui')}>Setujui</button>
-                  <button className="btn btn-small btn-danger" onClick={() => putuskan(p.id_produk, 'Ditolak')}>Tolak</button>
-                </div>
+
+                {tolakId === p.id_produk ? (
+                  <div className="reject-box">
+                    <label>Alasan penolakan (akan dilihat pengrajin)
+                      <textarea
+                        rows="3"
+                        value={alasan}
+                        onChange={(e) => setAlasan(e.target.value)}
+                        placeholder="Contoh: foto kurang jelas, bahan dan teknik belum lengkap"
+                      />
+                    </label>
+                    <div className="list-actions">
+                      <button className="btn btn-small btn-danger" onClick={() => kirimTolak(p.id_produk)}>Kirim penolakan</button>
+                      <button className="btn btn-small btn-outline" onClick={() => { setTolakId(null); setAlasan(''); }}>Batal</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="list-actions">
+                    <button className="btn btn-small" onClick={() => putuskan(p.id_produk, 'Disetujui')}>Setujui</button>
+                    <button className="btn btn-small btn-danger" onClick={() => setTolakId(p.id_produk)}>Tolak</button>
+                  </div>
+                )}
               </div>
             </div>
           )}

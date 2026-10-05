@@ -216,3 +216,15 @@ h1, h2, h3, .stats strong, .product-price.big { font-variant-numeric: lining-num
 .reject-box { margin-top: 16px; padding: 16px; background: #FBEDE6; border: 1px solid #E8C3B3; border-radius: 10px; display: flex; flex-direction: column; gap: 12px; }
 .reject-box label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px; }
 .reject-note { margin: 10px 0 0; padding: 10px 14px; background: #F8DDD3; color: #7A1F0E; border-radius: 8px; font-size: 14px; }
+/* Statistik */
+.main-content .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+.main-content .stats > div { background: #fff; color: #2A1A12; border: 1px solid #E4D5C3; border-left: 4px solid #B4532A; border-radius: 10px; padding: 16px 20px; display: flex; flex-direction: column; }
+.main-content .stats > div span { color: #7A6152; font-size: 13px; }
+
+/* Detail verifikasi dan penolakan */
+.review { flex-basis: 100%; display: grid; grid-template-columns: 220px 1fr; gap: 24px; margin-top: 8px; padding-top: 16px; border-top: 1px solid #E4D5C3; }
+.review > img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+.reject-box { margin-top: 16px; padding: 16px; background: #FBEDE6; border: 1px solid #E8C3B3; border-radius: 10px; display: flex; flex-direction: column; gap: 12px; }
+.reject-box label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px; }
+.reject-note { margin: 10px 0 0; padding: 10px 14px; background: #F8DDD3; color: #7A1F0E; border-radius: 8px; font-size: 14px; }
+@media (max-width: 860px) { .review { grid-template-columns: 1fr; } }
