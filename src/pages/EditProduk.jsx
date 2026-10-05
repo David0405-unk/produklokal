@@ -23,7 +23,7 @@ function EditProduk() {
   const simpan = async (isi) => {
     // Setelah diubah, produk diverifikasi ulang oleh admin
     const { error } = await supabase.from('produk_kerajinan')
-      .update({ ...isi, status_publikasi: 'Menunggu' }).eq('id_produk', id);
+      .update({ ...isi, status_publikasi: 'Menunggu', alasan_penolakan: null }).eq('id_produk', id);
     if (!error) navigate('/produk-saya');
     return error;
   };

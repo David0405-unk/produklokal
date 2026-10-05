@@ -208,3 +208,11 @@ h1, h2, h3, .stats strong, .product-price.big { font-variant-numeric: lining-num
 .password-toggle { position: absolute; right: 6px; top: 26%; transform: translateY(-50%); width: 40px; height: 40px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 8px; color: var(--muted); cursor: pointer; }
 .password-toggle:hover { color: var(--clay); background: var(--clay-soft); }
 .auth-link-line { text-align: right; font-size: 14px; margin: -6px 0 0; }
+.contact-box { margin-top: 24px; padding: 20px; background: var(--clay-soft); border: 1px solid var(--line); border-radius: 10px; }
+.contact-box h3 { margin-bottom: 6px; }
+.contact-box p { margin: 0 0 14px; }
+.btn-wa { background: #2F7D4F; border-color: #2F7D4F; }
+.btn-wa:hover { background: #256640; border-color: #256640; }
+.reject-box { margin-top: 16px; padding: 16px; background: #FBEDE6; border: 1px solid #E8C3B3; border-radius: 10px; display: flex; flex-direction: column; gap: 12px; }
+.reject-box label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14px; }
+.reject-note { margin: 10px 0 0; padding: 10px 14px; background: #F8DDD3; color: #7A1F0E; border-radius: 8px; font-size: 14px; }

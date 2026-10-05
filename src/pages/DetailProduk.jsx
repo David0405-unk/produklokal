@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { supabase } from '../lib/supabaseClient';
+import { linkWhatsApp } from '../utils/kontak';
 
 function DetailProduk() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function DetailProduk() {
         // Diambil terpisah supaya tidak bergantung pada relasi foreign key
         const [k, u] = await Promise.all([
           data.id_kategori ? supabase.from('kategori').select('nama_kategori').eq('id_kategori', data.id_kategori).maybeSingle() : { data: null },
-          data.id_pengrajin ? supabase.from('users').select('id, nama, wilayah, biodata').eq('id', data.id_pengrajin).maybeSingle() : { data: null },
+          data.id_pengrajin ? supabase.from('users').select('id, nama, wilayah, biodata, kontak_wa').eq('id', data.id_pengrajin).maybeSingle() : { data: null },
         ]);
         setKategori(k.data);
         setPengrajin(u.data);
@@ -61,6 +62,29 @@ function DetailProduk() {
                   <span>{pengrajin.wilayah}</span>
                   <span>{pengrajin.biodata?.slice(0, 120)}</span>
                 </Link>
+              )}
+              {pengrajin && (
+                <div className="contact-box">
+                  <h3>Cara memesan</h3>
+                  {linkWhatsApp(pengrajin.kontak_wa, '') ? (
+                    <>
+                      <p>Hubungi pengrajin langsung untuk menanyakan ketersediaan, ongkos kirim, dan pembayaran.</p>
+                      <a
+                        className="btn btn-wa"
+                        href={linkWhatsApp(
+                          pengrajin.kontak_wa,
+                          `Halo ${pengrajin.nama}, saya tertarik dengan produk "${p.nama_produk}" yang saya lihat di Pengrajin Lokal. Apakah masih tersedia?`
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Pesan via WhatsApp
+                      </a>
+                    </>
+                  ) : (
+                    <p className="muted">Pengrajin ini belum mencantumkan kontak pemesanan.</p>
+                  )}
+               </div>
               )}
             </div>
           </div>

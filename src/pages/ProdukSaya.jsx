@@ -44,6 +44,12 @@ function ProdukSaya() {
             <span className={`badge badge-${p.status_publikasi.toLowerCase()}`}>
               {p.status_publikasi === 'Menunggu' ? 'Menunggu verifikasi' : p.status_publikasi}
             </span>
+            {p.status_publikasi === 'Ditolak' && (
+              <p className="reject-note">
+                <strong>Alasan penolakan:</strong> {p.alasan_penolakan || 'Admin tidak mencantumkan alasan.'}
+                <br />Perbaiki lewat tombol Ubah, lalu produk akan diverifikasi ulang.
+              </p>
+            )}
           </div>
           <div className="list-actions">
             <Link to={`/edit-produk/${p.id_produk}`} className="btn btn-small btn-outline">Ubah</Link>

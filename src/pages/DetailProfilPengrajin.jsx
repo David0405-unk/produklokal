@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { linkWhatsApp } from '../utils/kontak';
 import { supabase } from '../lib/supabaseClient';
 
 function DetailProfilPengrajin() {
@@ -36,6 +37,16 @@ function DetailProfilPengrajin() {
                 <p className="muted">{g.wilayah || 'Sulawesi Utara'}</p>
                 <p>{g.biodata || 'Pengrajin ini belum menulis biodata.'}</p>
               </div>
+              {linkWhatsApp(g.kontak_wa, '') && (
+                <a
+                  className="btn btn-wa btn-small"
+                  href={linkWhatsApp(g.kontak_wa, `Halo ${g.nama}, saya melihat profil Anda di Pengrajin Lokal dan ingin bertanya soal produk.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Hubungi via WhatsApp
+                </a>
+              )}
             </div>
             <h2>Karya {g.nama}</h2>
             {produk.length === 0 ? <p>Belum ada produk yang dipublikasikan.</p> : (

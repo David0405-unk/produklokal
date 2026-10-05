@@ -10,6 +10,8 @@ function AdminDashboard() {
   const [produk, setProduk] = useState([]);
   const [kategori, setKategori] = useState([]);
   const [buka, setBuka] = useState(null);
+  const [tolakId, setTolakId] = useState(null);
+  const [alasan, setAlasan] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -36,11 +38,22 @@ function AdminDashboard() {
   const tayang = produk.filter((x) => x.status_publikasi === 'Disetujui');
   const jumlahProduk = (id) => produk.filter((x) => x.id_pengrajin === id).length;
 
-  const putuskan = async (id, status) => {
-    const { error: er } = await supabase.from('produk_kerajinan').update({ status_publikasi: status }).eq('id_produk', id);
-    if (er) setError('Gagal menyimpan: ' + er.message);
-    setBuka(null);
-    muat();
+  const putuskan = async (id, status, alasanTolak = null) => {
+    const { error: er } = await supabase.from('produk_kerajinan')
+      .update({ status_publikasi: status, alasan_penolakan: alasanTolak }).eq('id_produk', id);
+  if (er) setError('Gagal menyimpan: ' + er.message);
+  setBuka(null);
+  setTolakId(null);
+  setAlasan('');
+  muat();
+};
+
+  const kirimTolak = (id) => {
+    if (alasan.trim().length < 5) {
+      setError('Alasan penolakan wajib diisi (minimal 5 karakter).');
+      return;
+    }
+    putuskan(id, 'Ditolak', alasan.trim());
   };
 
   const toggleAktif = async (u) => {
@@ -87,11 +100,27 @@ function AdminDashboard() {
             <strong>{p.nama_produk}</strong>
             <p className="muted">{namaU[p.id_pengrajin] || 'Pengrajin'} · {namaK[p.id_kategori] || 'Tanpa kategori'} · {rp(p.harga)}</p>
           </div>
-          <div className="list-actions">
-            <button className="btn btn-small btn-outline" onClick={() => setBuka(buka === p.id_produk ? null : p.id_produk)}>
-              {buka === p.id_produk ? 'Tutup' : 'Lihat detail'}
-            </button>
-          </div>
+          {tolakId === p.id_produk ? (
+            <div className="reject-box">
+              <label>Alasan penolakan (akan dilihat pengrajin)
+                <textarea
+                  rows="3"
+                  value={alasan}
+                  onChange={(e) => setAlasan(e.target.value)}
+                  placeholder="Contoh: foto kurang jelas, bahan dan teknik belum lengkap"
+                />
+              </label>
+                <div className="list-actions">
+                  <button className="btn btn-small btn-danger" onClick={() => kirimTolak(p.id_produk)}>Kirim penolakan</button>
+                  <button className="btn btn-small btn-outline" onClick={() => { setTolakId(null); setAlasan(''); }}>Batal</button>
+                </div>
+              </div>
+            ) : (
+              <div className="list-actions">
+                <button className="btn btn-small" onClick={() => putuskan(p.id_produk, 'Disetujui')}>Setujui</button>
+                <button className="btn btn-small btn-danger" onClick={() => setTolakId(p.id_produk)}>Tolak</button>
+              </div>
+            )}
 
           {buka === p.id_produk && (
             <div className="review">
